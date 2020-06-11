@@ -1,6 +1,8 @@
 /* Class Code @ https://algs4.cs.princeton.edu/15uf/ */
 
 import java.util.Scanner;
+import java.io.File; // file io class 
+
 
 
 public class UF {
@@ -27,24 +29,21 @@ public class UF {
 
 
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		
-		Scanner input = new Scanner(System.in);
+		Scanner input = new Scanner(new File(args[0])); //get file name from command-line argument (Execution: java UF input.txt)
 
-		System.out.println("Set the data structure size: ");
 		int N = input.nextInt(); // user gives the number of objects
-		UF uf = new UF(N); // initialize union-find array/tree with N objects 
+		UF uf = new UF(N); // creating UF object; initialize union-find array/tree with N objects 
 
 		while (input.hasNext()) {
-			// System.out.println("The first object: ");
-			int p = input.nextInt();
-			// System.out.println("The second object: ");
+			int p = input.nextInt(); // reading two pairs of objects 
 			int q = input.nextInt();
 
 			// // only if p and q are not already connected, union them
 			// if (!uf.connected(p, q)) {  
-			// 	uf.union(p, q);
-			// 	System.out.println(p + " " + q);
+				// uf.union(p, q);
+				// System.out.println(p + " " + q);
 			// }
 		}
 	}
