@@ -7,7 +7,7 @@ public class QuickFindUF
 	private int[] id; // create array here in order to be accessible accross functions 
 	private int size;
 
-	// Constructors 
+	// Constructor 
 	public QuickFindUF(int n)
 	{
 		size = n;
@@ -17,7 +17,7 @@ public class QuickFindUF
 			id[i] = i;  // [0, 1, 2, 3, 4, ...]
 	}
 
-	public boolean connected(int p, int q) 
+	public boolean find(int p, int q) 
 	{
 		return id[p] == id[q]; // 2 * O(1)
 	}
@@ -48,6 +48,14 @@ public class QuickFindUF
 		return output;
 	}
 
+	public String toString(int p, int q)
+	{
+		String output = "Are " + p + " and " + q + " connected? ";
+		output += find(p, q);
+
+		return output;
+	}
+
 
 
 	public static void main(String[] args) throws Exception
@@ -55,20 +63,25 @@ public class QuickFindUF
 		Scanner input = new Scanner(new File(args[0])); //get file name from command-line argument (on terminal: java filename inputfile.txt)
 
 		int n = input.nextInt(); // user gives the number of objects
-		QuickFindUF qfuf = new QuickFindUF(n); // creating QuickFindUF object
+		QuickFindUF qfuf = new QuickFindUF(n); // create QuickFindUF object
 
 
 		while (input.hasNext()) 
 		{
-			int p = input.nextInt(); // reading two pairs of objects 
+			int p = input.nextInt(); // read two pairs of objects 
 			int q = input.nextInt();
 			System.out.println(p + " " + q);
 
 			qfuf.union(p, q);
 		}
 		System.out.println("---------------");
-
 		System.out.println(qfuf.toString());
+
+		// find whether two numbers are connected
+		System.out.println("---------------");
+		System.out.println(qfuf.toString(3, 8));
+		System.out.println(qfuf.toString(1, 8));
+
 
 	}
 }
