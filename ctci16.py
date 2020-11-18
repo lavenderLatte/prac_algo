@@ -1,8 +1,11 @@
 '''
 CTCI 1.6
 
-construct freq cnt list: O(N) 
-create compressed str: O(M) * 2 (where M is size of freq cnt list)
+(1) Construct freq cnt list: O(N)
+(2) Create compressed str
+	- Concatenate non-repeating char + str(freq) alternatively to compressed = '' --> Naive str appending takes O(N^2)!
+	* Modified 
+	- Append non-repeating char & str(freq) to compressed = [] --> O(M)+O(K) (where M: len(list1), K: # non-repeating char)
 '''
 
 # NOT A WORKING SOLUTION
@@ -30,7 +33,6 @@ def freqCounter(s):
 
 	while (i < len(s)):
 		newChar = s[i]
-		print(newChar)
 		# update
 		if oldChar == newChar: 
 			charFreq[freqPointer] += 1
@@ -44,36 +46,50 @@ def freqCounter(s):
 
 	return charFreq
 
+# # DEPRECATED: reason O(N^2)
+# def strCompressor(testString, freqTally):
+# 	compressed = ''
+# 	stri = 0
+# 	tallyi = 0
+# 	while (stri < len(testString)):
+# 		compressed += (testString[stri]) # Naive appending takes O(N^2)! 
+# 		compressed += str(freqTally[tallyi])
+# 		stri += freqTally[tallyi]
+# 		tallyi += 1
+		
+# 		# 0 'a' + 2
+# 		# 2 'b' + 1
+# 		# 3 'c' + 5
+# 		# 8 'a' + 3
 
-def strCompressor(testString, freqTally):
-	compressed = ''
+# 	return compressed
+
+
+def fasterStrCompressor(testString, freqTally):
+	compressed = []
 	stri = 0
 	tallyi = 0
 	while (stri < len(testString)):
-		compressed += (testString[stri])
-		compressed += str(freqTally[tallyi])
+		compressed.append(testString[stri])
+		compressed.append(str(freqTally[tallyi]))
 		stri += freqTally[tallyi]
 		tallyi += 1
-		
-		# 0 'a' + 2
-		# 2 'b' + 1
-		# 3 'c' + 5
-		# 8 'a' + 3
 
-	return compressed
+	return ''.join(compressed)
 
 
 
 def main():
 	testingSample = ['aabcccccaaa', 'abcd', 'abcaa', 'abcaaa', 'abcaaaaaa', 'abcaaabcaaa']
-	testString = testingSample[5] 
+	testString = testingSample[1] 
 	print ("TESTING:", testString)
 
 	freqTally = freqCounter(testString)
 	print(freqTally)
 
-	compressed = strCompressor(testString, freqTally)
-	print(compressed, len(compressed))
+	compressed = fasterStrCompressor(testString, freqTally)
+	# compressed = strCompressor(testString, freqTally)
+	print(compressed, "length: ", len(compressed))
 
 	# if compressed string would not become smaller than the original string, return original string
 	if (len(compressed) >= len(testString)):
