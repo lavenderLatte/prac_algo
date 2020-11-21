@@ -12,13 +12,18 @@ def arePermutations(s1, s2, charTally):
 		return False
 
 	increment(s1, charTally)
-	return decrement(s2, charTally)
-	
+	# return decrement(s2, charTally)
+	result = decrement(s2, charTally)
+	if result == False:
+		return result
+
 	# not permutations: less char in s2
 	for char in charTally:
 		if charTally[char] > 0:
 			print("not permutations")
 			return False
+
+	return True
 
 
 def increment(s, tally):
@@ -45,11 +50,12 @@ def decrement(s, tally):
 			return False
 
 
+
 def main():
 	testcases = ['god ', 'dog', 'Dog ', 'dog ', 'GDO', 'dogg']
 	dictionary = {}
 
-	arePermutations(testcases[0], testcases[5], dictionary)
+	arePermutations(testcases[0], testcases[3], dictionary)
 	print(dictionary)
 
 
